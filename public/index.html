@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <button onclick="getData()">get Data</button>
+  </body>
+  <script>
+    const getData = () => {
+      const query =`
+        query Account($username: String, $city: String) {
+          account(username: $username) {
+            name
+            age
+            salary(city: $city)
+          }
+        }
+      `
+
+      const variables = {username: "zhang", city: "wuhan"};
+
+      fetch('/graphql', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          query: query,
+          variable: variables
+        })
+      })
+      .then(res => res.json)
+      .then(json => {
+        console.log(data);
+      })
+    }
+  </script>
+</html>
